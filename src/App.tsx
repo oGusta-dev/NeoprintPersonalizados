@@ -1,12 +1,15 @@
-import { useEffect, useState, type ReactNode } from "react"
+import { useEffect, useRef, useState, type ReactNode } from "react"
 
-const WHATSAPP_NUMBER = "" // TODO: adicione o número oficial com DDI + DDD antes de publicar.
+// Configure apenas com o número oficial, incluindo DDI e DDD, antes de publicar.
+const WHATSAPP_NUMBER = ""
+const WHATSAPP_SETUP_MESSAGE =
+  "Número do WhatsApp ainda não configurado. O contato será ativado quando o número oficial com DDI e DDD for informado."
 
 const productViews = [
   {
     id: "frente",
     label: "Frente",
-    src: "/assets/caneca-quero-cafe.png",
+    src: "/assets/caneca-quero-cafe.png"  ,
     webp: "/assets/caneca-quero-cafe.webp",
     width: 1157,
     height: 670,
@@ -28,7 +31,7 @@ const products = [
     id: "quero-cafe",
     name: "Caneca “Quero Café! Ééé!”",
     description:
-      "Um único modelo com duas estampas: “Quero Café! Ééé!” na frente e “Sem Café, Sem Condições” no verso.",
+      "Um único modelo com duas vistas: “Quero Café! Ééé!” na frente e “Sem Café, Sem Condições” no verso.",
   },
 ] as const
 
@@ -119,17 +122,21 @@ function App() {
   const [activeView, setActiveView] =
     useState<typeof productViews[number]["id"]>("frente")
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuToggleRef = useRef<HTMLButtonElement>(null)
   const currentView =
     productViews.find((view) => view.id === activeView) ?? productViews[0]
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false)
+      if (event.key === "Escape" && menuOpen) {
+        setMenuOpen(false)
+        menuToggleRef.current?.focus()
+      }
     }
 
     document.addEventListener("keydown", closeOnEscape)
     return () => document.removeEventListener("keydown", closeOnEscape)
-  }, [])
+  }, [menuOpen])
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -156,7 +163,7 @@ function App() {
 
           <nav className="main-nav" aria-label="Navegação principal">
             <a href="#inicio">Início</a>
-            <a href="#modelos">Modelos</a>
+            <a href="#modelos">Modelo</a>
             <a href="#personalizacao">Personalização</a>
             <a href="#como-pedir">Como pedir</a>
           </nav>
@@ -169,6 +176,7 @@ function App() {
           </WhatsAppButton>
 
           <button
+            ref={menuToggleRef}
             className="mobile-menu-toggle"
             type="button"
             aria-expanded={menuOpen}
@@ -190,7 +198,7 @@ function App() {
               Início
             </a>
             <a href="#modelos" onClick={closeMenu}>
-              Modelos
+              Modelo
             </a>
             <a href="#personalizacao" onClick={closeMenu}>
               Personalização
@@ -206,7 +214,7 @@ function App() {
             Falar no WhatsApp
           </WhatsAppButton>
           {!WHATSAPP_NUMBER && (
-            <p>O WhatsApp aguarda a configuração do número oficial.</p>
+            <p>{WHATSAPP_SETUP_MESSAGE}</p>
           )}
         </div>
       </header>
@@ -217,36 +225,38 @@ function App() {
             <div className="hero-copy">
               <div className="eyebrow">
                 <span aria-hidden="true" />
-                Seu café com personalidade
+                Uma caneca, dois lados
               </div>
               <h1 id="hero-title">
-                Sua caneca, <span>do jeitinho que você imaginar.</span>
+                Um modelo, <span>duas atitudes.</span>
               </h1>
               <p>
-                Conheça a caneca “Quero Café! Ééé!” e veja os dois lados desse
-                modelo cheio de atitude.
+                Conheça a caneca “Quero Café! Ééé!” e veja a estampa da frente e
+                a do verso.
               </p>
               <div className="hero-actions">
                 <a className="button button-primary" href="#modelos">
-                  Ver o modelo
+                  Ver as duas vistas
                   <ArrowIcon />
                 </a>
-                <WhatsAppButton message="Olá! Quero conversar sobre uma caneca personalizada.">
-                  Pedir personalizada
+                <WhatsAppButton message="Olá! Tenho interesse na caneca Quero Café! Ééé! Gostaria de consultar preço e disponibilidade.">
+                  Falar sobre o modelo
                 </WhatsAppButton>
               </div>
               {!WHATSAPP_NUMBER && (
                 <p className="config-note" id="whatsapp-status" role="status">
-                  O WhatsApp aguarda a configuração do número oficial. Os botões
-                  serão habilitados antes da publicação.
+                  {WHATSAPP_SETUP_MESSAGE}
                 </p>
               )}
             </div>
 
-            <div className="product-stage" aria-label="Visualização da caneca">
+            <div
+              className="product-stage"
+              role="group"
+              aria-label="Visualização da caneca"
+            >
               <div className="stage-label">
-                <span>Modelo em destaque</span>
-                <strong>01</strong>
+                <span>Frente e verso</span>
               </div>
               <div className="product-light" aria-hidden="true" />
               <div className="product-image-wrap">
@@ -310,11 +320,11 @@ function App() {
           <div className="container">
             <div className="section-heading">
               <div>
-                <span className="section-index">01 / MODELOS</span>
+                <span className="section-index">Catálogo</span>
                 <h2 id="catalog-title">Um modelo, dois lados.</h2>
               </div>
               <p>
-                O catálogo começa com uma caneca para quem leva o café a sério.
+                Veja a frente e o verso da única caneca deste catálogo.
               </p>
             </div>
 
@@ -322,7 +332,7 @@ function App() {
               {products.map((product) => (
                 <article className="product-card" key={product.id}>
                   <div className="card-visual">
-                    <span className="available-tag">Modelo disponível</span>
+                    <span className="catalog-fact">Um modelo, duas vistas</span>
                     <picture className="card-product-picture">
                       <source srcSet={currentView.webp} type="image/webp" />
                       <img
@@ -338,11 +348,10 @@ function App() {
                     <span className="card-shadow" aria-hidden="true" />
                   </div>
                   <div className="card-content">
-                    <span className="product-number">MODELO 01</span>
                     <h3>{product.name}</h3>
                     <p>{product.description}</p>
                     <p className="price-note">
-                      Consulte preço e disponibilidade pelo WhatsApp.
+                      Preço e disponibilidade são informados pela Neoprint.
                     </p>
                     <div
                       className="view-summary"
@@ -376,7 +385,7 @@ function App() {
                       className="button-primary card-button"
                       message={`Olá! Tenho interesse no modelo ${product.name}.`}
                     >
-                      Comprar pelo WhatsApp
+                      Consultar este modelo
                     </WhatsAppButton>
                   </div>
                 </article>
@@ -396,18 +405,18 @@ function App() {
                 <SparkIcon />
               </div>
               <div className="custom-copy">
-                <span className="section-index">02 / PERSONALIZAÇÃO</span>
-                <h2 id="custom-title">Sua ideia pode virar caneca.</h2>
+                <span className="section-index">Personalização</span>
+                <h2 id="custom-title">Tem outra ideia em mente?</h2>
                 <p>
-                  Quer uma caneca personalizada? Conte sua ideia para a Neoprint
-                  e comece a conversa pelo WhatsApp.
+                  Conte sua ideia à Neoprint e consulte as possibilidades de
+                  personalização pelo atendimento.
                 </p>
               </div>
               <WhatsAppButton
                 className="button-primary custom-button"
-                message="Olá! Quero conversar sobre uma caneca personalizada."
+                message="Olá! Quero consultar as possibilidades de personalização de uma caneca."
               >
-                Iniciar conversa
+                Perguntar sobre personalização
               </WhatsAppButton>
             </div>
 
@@ -417,21 +426,21 @@ function App() {
               aria-labelledby="how-order-title"
             >
               <div className="how-order-heading">
-                <span className="section-index">03 / COMO PEDIR</span>
-                <h2 id="how-order-title">Comece pela sua escolha.</h2>
+                <span className="section-index">Atendimento</span>
+                <h2 id="how-order-title">Consulte antes de decidir.</h2>
               </div>
               <ol>
                 <li>
                   <span>1</span>
                   <p>
-                    Escolha o modelo pronto ou fale sobre uma personalização.
+                    Veja as duas vistas da caneca ou conte sua ideia.
                   </p>
                 </li>
                 <li>
                   <span>2</span>
                   <p>
-                    Inicie a conversa pelo WhatsApp para consultar preço e
-                    disponibilidade.
+                    Consulte valores, disponibilidade e possibilidades com a
+                    Neoprint.
                   </p>
                 </li>
               </ol>
@@ -458,11 +467,11 @@ function App() {
           </a>
           <nav aria-label="Navegação do rodapé">
             <a href="#inicio">Início</a>
-            <a href="#modelos">Modelos</a>
+            <a href="#modelos">Modelo</a>
             <a href="#personalizacao">Personalização</a>
             <a href="#como-pedir">Como pedir</a>
           </nav>
-          <p>Canecas que falam por você.</p>
+          <p>Frente e verso no mesmo modelo.</p>
         </div>
       </footer>
     </div>
