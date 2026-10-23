@@ -167,9 +167,6 @@ function App() {
   const [activeView, setActiveView] =
     useState<typeof productViews[number]["id"]>("frente")
 
-  const [cardViewId, setCardViewId] =
-    useState<typeof productViews[number]["id"]>("frente")
-
   const [menuOpen, setMenuOpen] = useState(false)
 
   const [cartOpen, setCartOpen] = useState(false)
@@ -178,17 +175,53 @@ function App() {
 
   const [cartItems, setCartItems] = useState<Record<string, number>>({})
 
+  const [headerScrolled, setHeaderScrolled] = useState(false)
+
+  const headerRef = useRef<HTMLElement>(null)
+
+  const heroRef = useRef<HTMLElement>(null)
+
+  const heroCopyRef = useRef<HTMLDivElement>(null)
+
   const menuToggleRef = useRef<HTMLButtonElement>(null)
 
   const cartTriggerRef = useRef<HTMLButtonElement>(null)
 
   const cartDialogRef = useRef<HTMLDialogElement>(null)
 
+  useEffect(() => {
+    let previousValue: boolean | null = null
+
+    const updateHeaderSurface = () => {
+      const header = headerRef.current
+      const hero = heroRef.current
+      const heroCopy = heroCopyRef.current
+
+      if (!header || !hero || !heroCopy) return
+
+      const lightAreaBottom = window.matchMedia("(max-width: 960px)").matches
+        ? heroCopy.getBoundingClientRect().bottom
+        : hero.getBoundingClientRect().bottom
+      const nextValue = lightAreaBottom <= header.offsetHeight
+
+      if (nextValue !== previousValue) {
+        previousValue = nextValue
+        setHeaderScrolled(nextValue)
+      }
+    }
+
+    updateHeaderSurface()
+    window.addEventListener("scroll", updateHeaderSurface, { passive: true })
+    window.addEventListener("resize", updateHeaderSurface)
+
+    return () => {
+      window.removeEventListener("scroll", updateHeaderSurface)
+      window.removeEventListener("resize", updateHeaderSurface)
+    }
+  }, [])
+
   const currentView =
     productViews.find((view) => view.id === activeView) ?? productViews[0]
-
-  const cardView =
-    productViews.find((view) => view.id === cardViewId) ?? productViews[0]
 
   const cartProducts = products.flatMap((product) => {
     const quantity = cartItems[product.id] ?? 0
@@ -305,7 +338,10 @@ function App() {
         Pular para o conteúdo
       </a>
 
-      <header className="site-header">
+      <header
+        ref={headerRef}
+        className={`site-header${headerScrolled ? " site-header--scrolled" : ""}`}
+      >
         <div className="container header-inner">
           <a
             className="brand"
@@ -322,7 +358,7 @@ function App() {
 
           <nav className="main-nav" aria-label="Navegação principal">
             <a href="#inicio">Início</a>
-            <a href="#modelos">Modelo</a>
+            <a href="#catalogo">Catálogo</a>
             <a href="#personalizacao">Personalização</a>
           </nav>
 
@@ -367,8 +403,8 @@ function App() {
             <a href="#inicio" onClick={closeMenu}>
               Início
             </a>
-            <a href="#modelos" onClick={closeMenu}>
-              Modelo
+            <a href="#catalogo" onClick={closeMenu}>
+              Catálogo
             </a>
             <a href="#personalizacao" onClick={closeMenu}>
               Personalização
@@ -415,7 +451,7 @@ function App() {
               <p>Adicione a caneca ao pedido para organizar os itens aqui.</p>
               <a
                 className="button button-primary"
-                href="#modelos"
+                href="#catalogo"
                 onClick={closeCart}
               >
                 Ver a caneca
@@ -510,23 +546,22 @@ function App() {
       </p>
 
       <main id="conteudo">
-        <section className="hero" id="inicio" aria-labelledby="hero-title">
+        <section
+          ref={heroRef}
+          className="hero"
+          id="inicio"
+          aria-labelledby="hero-title"
+        >
           <div className="container hero-grid">
-            <div className="hero-copy">
-              <div className="eyebrow">
-                <span aria-hidden="true" />
-                Uma caneca, dois lados
-              </div>
-              <h1 id="hero-title">
-                Um modelo, <span>duas atitudes.</span>
-              </h1>
+            <div className="hero-copy" ref={heroCopyRef}>
+              <h1 id="hero-title">Caneca “Quero Café! Ééé!”</h1>
               <p>
-                Conheça a caneca “Quero Café! Ééé!” e veja a estampa da frente e
-                a do verso.
+                Duas estampas no mesmo modelo. Use a seta para conferir o outro
+                lado.
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#modelos">
-                  Conheça a caneca
+                <a className="button button-primary" href="#catalogo">
+                  Ver o modelo
                   <ArrowIcon />
                 </a>
               </div>
@@ -582,18 +617,17 @@ function App() {
 
         <section
           className="catalog section"
-          id="modelos"
+          id="catalogo"
           aria-labelledby="catalog-title"
         >
           <div className="container">
             <div className="section-heading">
               <div>
-                <span className="section-index">Catálogo · 1 modelo</span>
-                <h2 id="catalog-title">Uma caneca, frente e verso.</h2>
+                <span className="section-index">Catálogo</span>
+                <h2 id="catalog-title">Frente e verso no mesmo modelo.</h2>
               </div>
               <p>
-                As duas imagens são vistas do mesmo produto, para você conferir
-                cada estampa.
+                Alterne as imagens pela seta e adicione a caneca ao seu pedido.
               </p>
             </div>
 
@@ -601,36 +635,35 @@ function App() {
               {products.map((product) => (
                 <article className="product-card" key={product.id}>
                   <div className="card-visual">
-                    <span className="catalog-fact">{cardView.label}</span>
                     <picture
-                      className={`card-product-picture card-product-picture--${cardView.id}`}
+                      className={`card-product-picture card-product-picture--${currentView.id}`}
                     >
-                      <source srcSet={cardView.webp} type="image/webp" />
+                      <source srcSet={currentView.webp} type="image/webp" />
                       <img
-                        key={cardView.id}
-                        src={cardView.src}
-                        alt={cardView.alt}
-                        width={cardView.width}
-                        height={cardView.height}
+                        key={currentView.id}
+                        src={currentView.src}
+                        alt={currentView.alt}
+                        width={currentView.width}
+                        height={currentView.height}
                         loading="lazy"
                         decoding="async"
                       />
                     </picture>
                     <button
                       className={`product-view-toggle ${
-                        cardView.id === "verso" ? "reverse" : ""
+                        currentView.id === "verso" ? "reverse" : ""
                       }`}
                       type="button"
                       aria-label={
-                        cardView.id === "frente"
+                        currentView.id === "frente"
                           ? "Ver a estampa do verso da caneca"
                           : "Ver a estampa da frente da caneca"
                       }
                       title={
-                        cardView.id === "frente" ? "Ver verso" : "Ver frente"
+                        currentView.id === "frente" ? "Ver verso" : "Ver frente"
                       }
                       onClick={() =>
-                        setCardViewId((view) =>
+                        setActiveView((view) =>
                           view === "frente" ? "verso" : "frente",
                         )
                       }
@@ -664,17 +697,18 @@ function App() {
             <div className="custom-panel">
               <div className="custom-copy">
                 <span className="section-index">Personalização</span>
-                <h2 id="custom-title">Sua ideia, nossa personalização.</h2>
+                <h2 id="custom-title">Sua ideia pode virar a próxima estampa.</h2>
                 <p>
-                  Personalizamos canecas com criatividade, carinho e do jeitinho
-                  que você imaginar.
+                  Uma frase para presentear, uma data especial ou um brinde para
+                  a sua empresa. Conte o que imaginou à Neoprint e converse sobre
+                  as possibilidades.
                 </p>
                 <div className="custom-action">
                   <WhatsAppButton
                     className="button-primary custom-button"
                     message="Olá! Quero conversar sobre a personalização de uma caneca com a minha ideia."
                   >
-                    Fale sobre a sua ideia
+                    Conte o que imaginou
                   </WhatsAppButton>
                   {!WHATSAPP_NUMBER && (
                     <p className="action-note" role="status">
@@ -684,17 +718,16 @@ function App() {
                 </div>
               </div>
               <div className="custom-art" aria-hidden="true">
-                <span>Feita do seu jeito</span>
                 <picture>
                   <source
-                    srcSet="/assets/caneca-quero-cafe.webp"
+                    srcSet="/assets/caneca-sem-cafe.webp"
                     type="image/webp"
                   />
                   <img
-                    src="/assets/caneca-quero-cafe.png"
+                    src="/assets/caneca-sem-cafe.png"
                     alt=""
-                    width="1157"
-                    height="670"
+                    width="1126"
+                    height="645"
                     loading="lazy"
                     decoding="async"
                   />
@@ -713,17 +746,17 @@ function App() {
             aria-label="Voltar ao início"
           >
             <img
-              src="/assets/neo-print.png"
+              src="/assets/logo-neoprint-sem-fundo.svg"
               alt="Neoprint Personalizados"
-              width="804"
-              height="804"
+              width="1220"
+              height="1552"
               loading="lazy"
               decoding="async"
             />
           </a>
           <nav aria-label="Navegação do rodapé">
             <a href="#inicio">Início</a>
-            <a href="#modelos">Modelo</a>
+            <a href="#catalogo">Catálogo</a>
             <a href="#personalizacao">Personalização</a>
           </nav>
           <p>Frente e verso no mesmo modelo.</p>
