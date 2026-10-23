@@ -313,10 +313,10 @@ function App() {
             aria-label="Neoprint Personalizados — início"
           >
             <img
-              src="/assets/neo-print.png"
+              src="/assets/logo-neoprint-sem-fundo.svg"
               alt="Neoprint Personalizados"
-              width="804"
-              height="804"
+              width="1220"
+              height="1552"
             />
           </a>
 
@@ -518,7 +518,7 @@ function App() {
                 Uma caneca, dois lados
               </div>
               <h1 id="hero-title">
-                Sua caneca, <span>do jeitinho que você imaginar.</span>
+                Um modelo, <span>duas atitudes.</span>
               </h1>
               <p>
                 Conheça a caneca “Quero Café! Ééé!” e veja a estampa da frente e
