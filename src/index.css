@@ -301,6 +301,9 @@ a:focus-visible {
 }
 
 .button svg.whatsapp-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
   fill: currentColor;
   stroke: none;
 }
@@ -1038,9 +1041,42 @@ main [id] {
   position: relative;
   min-height: 430px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px;
   overflow: hidden;
   background: radial-gradient(circle at 52% 48%, #182333 0%, #0a0d14 72%);
+}
+
+.custom-gallery-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.custom-gallery-toggle {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.custom-gallery-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.48);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.custom-gallery-toggle:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
 }
 
 .custom-gallery {
@@ -1102,6 +1138,10 @@ main [id] {
 
 .custom-gallery:hover .custom-gallery-row,
 .custom-gallery:focus .custom-gallery-row {
+  animation-play-state: paused;
+}
+
+.custom-gallery--paused .custom-gallery-row {
   animation-play-state: paused;
 }
 
@@ -1380,7 +1420,7 @@ main [id] {
   }
 
   .product-stage::before {
-    top: -28px;
+    top: 0;
     clip-path: none;
   }
 
@@ -1446,12 +1486,13 @@ main [id] {
   }
 
   .custom-art {
-    min-height: 220px;
-    padding-block: 24px;
+    min-height: 280px;
+    padding: 16px;
   }
 
   .custom-gallery {
     gap: 0;
+    mask-image: none;
   }
 
   .custom-gallery-row--reverse {
@@ -1459,7 +1500,7 @@ main [id] {
   }
 
   .custom-gallery-card {
-    width: clamp(240px, 72vw, 300px);
+    width: min(calc(100vw - 64px), 640px);
   }
 
   .custom-action {
@@ -1546,6 +1587,10 @@ main [id] {
 
   .custom-gallery-row--reverse,
   .custom-gallery-track[aria-hidden='true'] {
+    display: none;
+  }
+
+  .custom-gallery-toolbar {
     display: none;
   }
 }
