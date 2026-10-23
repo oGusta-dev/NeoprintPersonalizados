@@ -178,11 +178,44 @@ function App() {
 
   const [cartItems, setCartItems] = useState<Record<string, number>>({})
 
+  const [headerScrolled, setHeaderScrolled] = useState(false)
+
+  const headerRef = useRef<HTMLElement>(null)
+
+  const heroRef = useRef<HTMLElement>(null)
+
   const menuToggleRef = useRef<HTMLButtonElement>(null)
 
   const cartTriggerRef = useRef<HTMLButtonElement>(null)
 
   const cartDialogRef = useRef<HTMLDialogElement>(null)
+
+  useEffect(() => {
+    let previousValue: boolean | null = null
+
+    const updateHeaderSurface = () => {
+      const header = headerRef.current
+      const hero = heroRef.current
+
+      if (!header || !hero) return
+
+      const nextValue = hero.getBoundingClientRect().bottom <= header.offsetHeight
+
+      if (nextValue !== previousValue) {
+        previousValue = nextValue
+        setHeaderScrolled(nextValue)
+      }
+    }
+
+    updateHeaderSurface()
+    window.addEventListener("scroll", updateHeaderSurface, { passive: true })
+    window.addEventListener("resize", updateHeaderSurface)
+
+    return () => {
+      window.removeEventListener("scroll", updateHeaderSurface)
+      window.removeEventListener("resize", updateHeaderSurface)
+    }
+  }, [])
 
   const currentView =
     productViews.find((view) => view.id === activeView) ?? productViews[0]
@@ -305,7 +338,10 @@ function App() {
         Pular para o conteúdo
       </a>
 
-      <header className="site-header">
+      <header
+        ref={headerRef}
+        className={`site-header${headerScrolled ? " site-header--scrolled" : ""}`}
+      >
         <div className="container header-inner">
           <a
             className="brand"
@@ -510,7 +546,12 @@ function App() {
       </p>
 
       <main id="conteudo">
-        <section className="hero" id="inicio" aria-labelledby="hero-title">
+        <section
+          ref={heroRef}
+          className="hero"
+          id="inicio"
+          aria-labelledby="hero-title"
+        >
           <div className="container hero-grid">
             <div className="hero-copy">
               <div className="eyebrow">
