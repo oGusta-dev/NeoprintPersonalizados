@@ -57,6 +57,69 @@ const products = [
   },
 ] as const
 
+const customizationExamples = [
+  {
+    id: "batman-front",
+    src: "/assets/personalizados/batman-frente.jpg",
+    alt: "Caneca personalizada com ilustração do Batman e tema de café.",
+  },
+  {
+    id: "love-front",
+    src: "/assets/personalizados/com-amor-frente.jpg",
+    alt: "Caneca personalizada com ilustração romântica e a frase Com amor, com você para sempre.",
+  },
+  {
+    id: "ieccap-front",
+    src: "/assets/personalizados/ieccap-frente-branca.jpg",
+    alt: "Caneca branca personalizada com a identidade visual IECCAP.",
+  },
+  {
+    id: "ieccap-back",
+    src: "/assets/personalizados/ieccap-costas-branca.jpg",
+    alt: "Vista da outra face da caneca IECCAP com uma mensagem institucional.",
+  },
+  {
+    id: "neoprint",
+    src: "/assets/personalizados/neoprint.jpg",
+    alt: "Caneca personalizada com a marca Neoprint.",
+  },
+  {
+    id: "coffee-front",
+    src: "/assets/personalizados/quero-cafe-frente.jpg",
+    alt: "Caneca personalizada com uma estampa sobre café.",
+  },
+  {
+    id: "coffee-back",
+    src: "/assets/personalizados/quero-cafe-costas.jpg",
+    alt: "Outra vista da caneca personalizada com a frase Sem café, sem condições.",
+  },
+  {
+    id: "batman-back",
+    src: "/assets/personalizados/batman-costas.jpg",
+    alt: "Outra vista da caneca personalizada com tema Batman e café.",
+  },
+  {
+    id: "love-back",
+    src: "/assets/personalizados/com-amor-costas.jpg",
+    alt: "Outra vista da caneca personalizada com tema romântico.",
+  },
+] as const
+
+const customizationRows = [
+  {
+    id: "first",
+    reverse: false,
+    hidden: false,
+    images: customizationExamples,
+  },
+  {
+    id: "second",
+    reverse: true,
+    hidden: true,
+    images: [...customizationExamples].reverse(),
+  },
+] as const
+
 function whatsappUrl(message: string) {
   const number = WHATSAPP_NUMBER.replace(/\D/g, "")
 
@@ -724,21 +787,55 @@ function App() {
                   )}
                 </div>
               </div>
-              <div className="custom-art" aria-hidden="true">
-                <picture>
-                  <source
-                    srcSet="/assets/caneca-sem-cafe.webp"
-                    type="image/webp"
-                  />
-                  <img
-                    src="/assets/caneca-sem-cafe.png"
-                    alt=""
-                    width="1126"
-                    height="645"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
+              <div className="custom-art">
+                <div
+                  className="custom-gallery"
+                  role="region"
+                  aria-label="Exemplos de canecas personalizadas"
+                  tabIndex={0}
+                >
+                  {customizationRows.map((row) => (
+                    <div
+                      className={`custom-gallery-row${
+                        row.reverse ? " custom-gallery-row--reverse" : ""
+                      }`}
+                      aria-hidden={row.hidden || undefined}
+                      key={row.id}
+                    >
+                      {[0, 1].map((copy) => (
+                        <div
+                          className="custom-gallery-track"
+                          role={
+                            !row.hidden && copy === 0 ? "list" : undefined
+                          }
+                          aria-hidden={copy === 1 || undefined}
+                          key={copy}
+                        >
+                          {row.images.map((example) => (
+                            <figure
+                              className="custom-gallery-card"
+                              role={
+                                !row.hidden && copy === 0
+                                  ? "listitem"
+                                  : undefined
+                              }
+                              key={example.id}
+                            >
+                              <img
+                                src={example.src}
+                                alt={example.alt}
+                                width="1440"
+                                height="804"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </figure>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
