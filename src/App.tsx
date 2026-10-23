@@ -621,14 +621,11 @@ function App() {
           aria-labelledby="catalog-title"
         >
           <div className="container">
-            <div className="section-heading">
+            <div className="section-heading catalog-heading">
               <div>
                 <span className="section-index">Catálogo</span>
-                <h2 id="catalog-title">Frente e verso no mesmo modelo.</h2>
+                <h2 id="catalog-title">Veja os nossos modelos</h2>
               </div>
-              <p>
-                Alterne as imagens pela seta e adicione a caneca ao seu pedido.
-              </p>
             </div>
 
             <div className="product-list">
