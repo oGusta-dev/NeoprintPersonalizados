@@ -518,7 +518,7 @@ function App() {
                 Uma caneca, dois lados
               </div>
               <h1 id="hero-title">
-                Um modelo, <span>duas atitudes.</span>
+                Sua caneca, <span>do jeitinho que você imaginar.</span>
               </h1>
               <p>
                 Conheça a caneca “Quero Café! Ééé!” e veja a estampa da frente e
