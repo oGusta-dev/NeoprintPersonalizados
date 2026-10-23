@@ -108,14 +108,6 @@ function CloseIcon() {
   )
 }
 
-function SparkIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24">
-      <path d="m12 3 1.2 4.1a5 5 0 0 0 3.4 3.4l4.4 1.3-4.4 1.3a5 5 0 0 0-3.4 3.4L12 21l-1.2-4.5a5 5 0 0 0-3.4-3.4L3 11.8l4.4-1.3a5 5 0 0 0 3.4-3.4L12 3Z" />
-    </svg>
-  )
-}
-
 function MenuIcon({ open }: { open: boolean }) {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24">
@@ -550,14 +542,14 @@ function App() {
               role="group"
               aria-label="Visualização da caneca"
             >
-              <div className="stage-label">
-                <span>Frente e verso</span>
-              </div>
               <div className="product-light" aria-hidden="true" />
               <div className="product-image-wrap">
-                <picture key={currentView.id}>
+                <picture
+                  className={`hero-product-picture hero-product-picture--${currentView.id}`}
+                >
                   <source srcSet={currentView.webp} type="image/webp" />
                   <img
+                    key={currentView.id}
                     className="hero-product-image"
                     src={currentView.src}
                     alt={currentView.alt}
@@ -570,40 +562,20 @@ function App() {
                 </picture>
               </div>
               <div className="contact-shadow" aria-hidden="true" />
-
-              <div
-                className="view-switcher"
-                aria-label="Escolha a vista do produto"
+              <button
+                className={`product-view-toggle hero-view-toggle ${
+                  activeView === "verso" ? "reverse" : ""
+                }`}
+                type="button"
+                aria-label={`Mostrar ${
+                  activeView === "frente" ? "verso" : "frente"
+                } da caneca`}
+                onClick={() =>
+                  setActiveView(activeView === "frente" ? "verso" : "frente")
+                }
               >
-                <span className="view-label">Visualizar</span>
-                <div
-                  className="view-options"
-                  role="group"
-                  aria-label="Vista da caneca"
-                >
-                  {productViews.map((view) => {
-                    const selected = view.id === activeView
-
-                    return (
-                      <button
-                        key={view.id}
-                        type="button"
-                        className={
-                          selected ? "view-option active" : "view-option"
-                        }
-                        aria-pressed={selected}
-                        onClick={() => setActiveView(view.id)}
-                      >
-                        <span className="view-dot" aria-hidden="true" />
-                        {view.label}
-                        {selected && (
-                          <span className="sr-only">(selecionada)</span>
-                        )}
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
+                <ArrowIcon />
+              </button>
             </div>
           </div>
         </section>
@@ -630,7 +602,9 @@ function App() {
                 <article className="product-card" key={product.id}>
                   <div className="card-visual">
                     <span className="catalog-fact">{cardView.label}</span>
-                    <picture className="card-product-picture">
+                    <picture
+                      className={`card-product-picture card-product-picture--${cardView.id}`}
+                    >
                       <source srcSet={cardView.webp} type="image/webp" />
                       <img
                         key={cardView.id}
@@ -688,29 +662,43 @@ function App() {
         >
           <div className="container">
             <div className="custom-panel">
-              <div className="custom-icon">
-                <SparkIcon />
-              </div>
               <div className="custom-copy">
                 <span className="section-index">Personalização</span>
-                <h2 id="custom-title">Tem outra ideia em mente?</h2>
+                <h2 id="custom-title">Sua ideia, nossa personalização.</h2>
                 <p>
-                  Conte sua ideia à Neoprint e consulte as possibilidades de
-                  personalização pelo atendimento.
+                  Personalizamos canecas com criatividade, carinho e do jeitinho
+                  que você imaginar.
                 </p>
+                <div className="custom-action">
+                  <WhatsAppButton
+                    className="button-primary custom-button"
+                    message="Olá! Quero conversar sobre a personalização de uma caneca com a minha ideia."
+                  >
+                    Fale sobre a sua ideia
+                  </WhatsAppButton>
+                  {!WHATSAPP_NUMBER && (
+                    <p className="action-note" role="status">
+                      {WHATSAPP_SETUP_MESSAGE}
+                    </p>
+                  )}
+                </div>
               </div>
-              <div className="custom-action">
-                <WhatsAppButton
-                  className="button-primary custom-button"
-                  message="Olá! Quero consultar as possibilidades de personalização de uma caneca."
-                >
-                  Perguntar sobre personalização
-                </WhatsAppButton>
-                {!WHATSAPP_NUMBER && (
-                  <p className="action-note" role="status">
-                    {WHATSAPP_SETUP_MESSAGE}
-                  </p>
-                )}
+              <div className="custom-art" aria-hidden="true">
+                <span>Feita do seu jeito</span>
+                <picture>
+                  <source
+                    srcSet="/assets/caneca-quero-cafe.webp"
+                    type="image/webp"
+                  />
+                  <img
+                    src="/assets/caneca-quero-cafe.png"
+                    alt=""
+                    width="1157"
+                    height="670"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
             </div>
           </div>
