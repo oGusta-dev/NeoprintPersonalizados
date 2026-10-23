@@ -300,6 +300,11 @@ a:focus-visible {
   stroke-width: 1.8;
 }
 
+.button svg.whatsapp-icon {
+  fill: currentColor;
+  stroke: none;
+}
+
 .button:hover:not(:disabled) {
   border-color: rgba(255, 255, 255, 0.3);
   background: var(--surface-hover);
