@@ -1049,77 +1049,6 @@ main [id] {
   background: radial-gradient(circle at 52% 48%, #182333 0%, #0a0d14 72%);
 }
 
-.custom-gallery-toolbar {
-  display: flex;
-  justify-content: flex-end;
-  flex: 0 0 auto;
-}
-
-.custom-gallery-motion {
-  position: relative;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 12px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 160ms ease, border-color 160ms ease;
-}
-
-.custom-gallery-motion:hover {
-  border-color: rgba(255, 255, 255, 0.48);
-  background: rgba(255, 255, 255, 0.14);
-}
-
-.custom-gallery-motion input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-.custom-gallery-motion-track {
-  width: 36px;
-  height: 20px;
-  display: inline-flex;
-  align-items: center;
-  padding: 2px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.3);
-  transition: background-color 160ms ease;
-}
-
-.custom-gallery-motion-track::before {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff;
-  content: '';
-  transition: transform 160ms ease;
-}
-
-.custom-gallery-motion input:checked + .custom-gallery-motion-track {
-  background: var(--blue);
-}
-
-.custom-gallery-motion input:checked + .custom-gallery-motion-track::before {
-  transform: translateX(16px);
-}
-
-.custom-gallery-motion input:focus-visible + .custom-gallery-motion-track {
-  outline: 3px solid var(--blue);
-  outline-offset: 3px;
-}
-
 .custom-gallery {
   width: 100%;
   display: grid;
@@ -1175,10 +1104,6 @@ main [id] {
   height: 100%;
   display: block;
   object-fit: cover;
-}
-
-.custom-gallery--paused .custom-gallery-row {
-  animation-play-state: paused;
 }
 
 @keyframes customization-gallery-flow {
@@ -1609,24 +1534,13 @@ main [id] {
     transition-duration: 0.01ms !important;
   }
 
-  .custom-gallery {
-    overflow-x: auto;
-    mask-image: none;
-    scrollbar-width: thin;
+  .custom-gallery-row {
+    animation: customization-gallery-flow 64s linear infinite !important;
+    will-change: transform;
   }
 
-  .custom-gallery-row,
   .custom-gallery-row--reverse {
-    animation: none !important;
-    will-change: auto;
-  }
-
-  .custom-gallery-row--reverse,
-  .custom-gallery-track[aria-hidden='true'] {
-    display: none;
-  }
-
-  .custom-gallery-toolbar {
-    display: none;
+    animation-direction: reverse !important;
+    animation-duration: 78s !important;
   }
 }
