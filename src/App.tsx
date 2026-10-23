@@ -358,7 +358,7 @@ function App() {
 
           <nav className="main-nav" aria-label="Navegação principal">
             <a href="#inicio">Início</a>
-            <a href="#modelos">Modelo</a>
+            <a href="#catalogo">Catálogo</a>
             <a href="#personalizacao">Personalização</a>
           </nav>
 
@@ -403,8 +403,8 @@ function App() {
             <a href="#inicio" onClick={closeMenu}>
               Início
             </a>
-            <a href="#modelos" onClick={closeMenu}>
-              Modelo
+            <a href="#catalogo" onClick={closeMenu}>
+              Catálogo
             </a>
             <a href="#personalizacao" onClick={closeMenu}>
               Personalização
@@ -451,7 +451,7 @@ function App() {
               <p>Adicione a caneca ao pedido para organizar os itens aqui.</p>
               <a
                 className="button button-primary"
-                href="#modelos"
+                href="#catalogo"
                 onClick={closeCart}
               >
                 Ver a caneca
@@ -560,8 +560,8 @@ function App() {
                 lado.
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#modelos">
-                  Ver o modelo
+                <a className="button button-primary" href="#catalogo">
+                  Ver o catálogo
                   <ArrowIcon />
                 </a>
               </div>
@@ -617,17 +617,17 @@ function App() {
 
         <section
           className="catalog section"
-          id="modelos"
+          id="catalogo"
           aria-labelledby="catalog-title"
         >
           <div className="container">
             <div className="section-heading">
               <div>
-                <span className="section-index">Modelo disponível</span>
-                <h2 id="catalog-title">Frente e verso no mesmo modelo.</h2>
+                <span className="section-index">Catálogo</span>
+                <h2 id="catalog-title">Uma caneca, duas estampas.</h2>
               </div>
               <p>
-                Alterne as imagens pela seta e adicione a caneca ao seu pedido.
+                Confira as vistas do modelo e adicione a caneca ao seu pedido.
               </p>
             </div>
 
@@ -756,7 +756,7 @@ function App() {
           </a>
           <nav aria-label="Navegação do rodapé">
             <a href="#inicio">Início</a>
-            <a href="#modelos">Modelo</a>
+            <a href="#catalogo">Catálogo</a>
             <a href="#personalizacao">Personalização</a>
           </nav>
           <p>Frente e verso no mesmo modelo.</p>
