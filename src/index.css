@@ -19,6 +19,7 @@
   --light-muted: #5d6878;
   --light-border: rgba(17, 23, 34, 0.12);
   --container: 1280px;
+  --header-height: 112px;
   --anchor-offset: 120px;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
@@ -87,12 +88,21 @@ a:focus-visible {
   top: 0;
   z-index: 20;
   width: 100%;
-  border-bottom: 1px solid var(--light-border);
+  margin-bottom: calc(0px - var(--header-height));
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.site-header--scrolled {
+  border-bottom-color: var(--light-border);
   background: var(--light-surface);
 }
 
 .header-inner {
-  min-height: 112px;
+  min-height: var(--header-height);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
@@ -111,7 +121,7 @@ a:focus-visible {
   justify-content: center;
   border: 1px solid var(--light-border);
   border-radius: 11px;
-  background: var(--light-surface);
+  background: var(--light-bg);
   color: var(--light-text);
   cursor: pointer;
 }
@@ -164,6 +174,9 @@ a:focus-visible {
   border: 1px solid var(--light-border);
   border-radius: 999px;
   background: var(--light-bg);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
 }
 
 .main-nav a,
@@ -201,6 +214,51 @@ a:focus-visible {
 .main-nav a:hover {
   background: var(--light-surface);
   color: var(--light-text);
+}
+
+.site-header--scrolled .main-nav {
+  border-color: var(--light-border);
+  background: var(--light-bg);
+}
+
+.site-header--scrolled .main-nav a {
+  color: var(--light-muted);
+}
+
+.site-header--scrolled .main-nav a:hover {
+  background: var(--light-surface);
+  color: var(--light-text);
+}
+
+.site-header--scrolled .mobile-menu-toggle {
+  background: var(--light-surface);
+}
+
+@media (min-width: 961px) {
+  .site-header:not(.site-header--scrolled) .main-nav {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(17, 23, 34, 0.88);
+  }
+
+  .site-header:not(.site-header--scrolled) .main-nav a {
+    color: rgba(255, 255, 255, 0.74);
+  }
+
+  .site-header:not(.site-header--scrolled) .main-nav a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+  }
+
+  .site-header:not(.site-header--scrolled) .header-cart-trigger {
+    border-color: #fff;
+    background: #fff;
+    color: #171b22;
+  }
+
+  .site-header:not(.site-header--scrolled) .header-cart-trigger:hover {
+    border-color: #e7ebf0;
+    background: #e7ebf0;
+  }
 }
 
 .footer-inner nav a:hover {
@@ -340,7 +398,7 @@ a:focus-visible {
 
 .hero {
   position: relative;
-  min-height: max(620px, calc(min(760px, 100svh) - 88px));
+  min-height: max(620px, min(760px, 100svh));
   display: flex;
   align-items: stretch;
   border-bottom: 1px solid var(--border);
@@ -366,7 +424,7 @@ a:focus-visible {
   grid-template-columns: 0.9fr 1.1fr;
   align-items: center;
   gap: 32px;
-  padding-top: 32px;
+  padding-top: calc(var(--header-height) + 32px);
   padding-bottom: 32px;
 }
 
@@ -1068,7 +1126,7 @@ main [id] {
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 12px;
-    padding-top: 68px;
+    padding-top: calc(var(--header-height) + 32px);
     padding-bottom: 64px;
   }
 
@@ -1132,6 +1190,7 @@ main [id] {
 
 @media (max-width: 720px) {
   :root {
+    --header-height: 88px;
     --anchor-offset: 96px;
   }
 
@@ -1181,9 +1240,13 @@ main [id] {
   }
 
   .mobile-navigation {
-    width: calc(100% - 32px);
+    position: absolute;
+    top: calc(var(--header-height) - 1px);
+    right: 16px;
+    left: 16px;
     display: block;
-    margin: 0 auto;
+    width: auto;
+    margin: 0;
     padding: 20px;
     border: 1px solid var(--light-border);
     border-radius: 0 0 16px 16px;
@@ -1206,7 +1269,7 @@ main [id] {
   }
 
   .hero-grid {
-    padding-top: 44px;
+    padding-top: calc(var(--header-height) + 24px);
   }
 
   .eyebrow {
