@@ -435,6 +435,27 @@ a:focus-visible {
   color: var(--light-text);
 }
 
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--light-muted);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.hero-eyebrow::before {
+  width: 32px;
+  height: 2px;
+  flex: 0 0 auto;
+  content: '';
+  background: var(--gradient);
+}
+
 h1,
 h2,
 h3,
@@ -448,6 +469,14 @@ h1 {
   font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 1.02;
+}
+
+.hero-copy h1 {
+  max-width: 560px;
+}
+
+.hero-copy h1 span {
+  color: var(--light-muted);
 }
 
 .hero-copy > p {
@@ -467,6 +496,26 @@ h1 {
 
 .hero-actions .button-primary svg {
   margin-left: 4px;
+}
+
+.hero-contact-button {
+  border-color: #70777e;
+  background: #70777e;
+  color: #fff;
+  box-shadow: none;
+}
+
+.hero-contact-button:hover:not(:disabled) {
+  border-color: #5f6871;
+  background: #5f6871;
+}
+
+.hero-note {
+  max-width: 440px;
+  margin-top: 18px;
+  color: var(--light-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
 }
 
 .config-note {
