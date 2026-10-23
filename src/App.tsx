@@ -237,8 +237,6 @@ function App() {
 
   const [cartOpen, setCartOpen] = useState(false)
 
-  const [galleryPaused, setGalleryPaused] = useState(false)
-
   const [cartNotice, setCartNotice] = useState("")
 
   const [cartItems, setCartItems] = useState<Record<string, number>>({})
@@ -793,29 +791,8 @@ function App() {
                 </div>
               </div>
               <div className="custom-art">
-                <div className="custom-gallery-toolbar">
-                  <label className="custom-gallery-motion">
-                    <span>Movimento</span>
-                    <input
-                      type="checkbox"
-                      role="switch"
-                      aria-label="Movimento automático dos exemplos de personalização"
-                      aria-controls="custom-gallery"
-                      checked={!galleryPaused}
-                      onChange={(event) =>
-                        setGalleryPaused(!event.currentTarget.checked)
-                      }
-                    />
-                    <span
-                      className="custom-gallery-motion-track"
-                      aria-hidden="true"
-                    />
-                  </label>
-                </div>
                 <div
-                  className={`custom-gallery${
-                    galleryPaused ? " custom-gallery--paused" : ""
-                  }`}
+                  className="custom-gallery"
                   id="custom-gallery"
                   role="region"
                   aria-label="Exemplos de canecas personalizadas"
