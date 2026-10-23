@@ -554,22 +554,32 @@ function App() {
         >
           <div className="container hero-grid">
             <div className="hero-copy" ref={heroCopyRef}>
-              <h1 id="hero-title">Caneca “Quero Café! Ééé!”</h1>
+              <div className="hero-eyebrow">
+                Seu café com personalidade
+              </div>
+              <h1 id="hero-title">
+                Sua caneca, <span>do jeitinho que você imaginar.</span>
+              </h1>
               <p>
-                Duas estampas no mesmo modelo. Use a seta para conferir o outro
-                lado.
+                Conheça a caneca “Quero Café! Ééé!” e veja os dois lados desse
+                modelo cheio de atitude.
               </p>
               <div className="hero-actions">
                 <a className="button button-primary" href="#catalogo">
                   Ver o modelo
                   <ArrowIcon />
                 </a>
+                <WhatsAppButton
+                  className="hero-contact-button"
+                  message="Olá! Gostaria de conversar sobre uma caneca personalizada."
+                >
+                  Pedir personalizada
+                </WhatsAppButton>
               </div>
-              {!WHATSAPP_NUMBER && (
-                <p className="config-note" id="whatsapp-status" role="status">
-                  {WHATSAPP_SETUP_MESSAGE}
-                </p>
-              )}
+              <p className="hero-note">
+                O WhatsApp está configurado para testes; confirme o número
+                oficial antes de publicar.
+              </p>
             </div>
 
             <div
