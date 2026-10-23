@@ -7,6 +7,11 @@ const WHATSAPP_NUMBER = "5591984932957"
 const WHATSAPP_SETUP_MESSAGE =
   "WhatsApp não configurado: falta informar o número oficial com DDI e DDD."
 
+const formatBRL = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+})
+
 const productViews = [
   {
     id: "frente",
@@ -46,6 +51,9 @@ const products = [
     id: "quero-cafe",
 
     name: "Caneca “Quero Café! Ééé!”",
+
+    // Preço ainda não informado; manter como null evita inventar valores.
+    unitPrice: null as number | null,
   },
 ] as const
 
@@ -202,21 +210,41 @@ function App() {
     0,
   )
 
+  const orderTotal = cartProducts.some((product) => product.unitPrice === null)
+    ? null
+    : cartProducts.reduce(
+        (total, product) => total + (product.unitPrice ?? 0) * product.quantity,
+
+        0,
+      )
+
+  const formatPrice = (price: number | null) =>
+    price === null ? "A confirmar" : formatBRL.format(price)
+
   const orderMessage = [
-    "Olá, Neoprint! Gostaria de finalizar este pedido:",
+    "🧾 PEDIDO",
 
     "",
 
-    ...cartProducts.map(
-      (product) =>
-        `• ${product.name} — ${product.quantity} ${
-          product.quantity === 1 ? "unidade" : "unidades"
-        }`,
-    ),
+    "📝 ITENS:",
+
+    ...cartProducts.flatMap((product) => [
+      `• ${product.name}`,
+      `  Quantidade: ${product.quantity}`,
+      `  Valor unitário: ${formatPrice(product.unitPrice)}`,
+      `  Subtotal: ${formatPrice(
+        product.unitPrice === null
+          ? null
+          : product.unitPrice * product.quantity,
+      )}`,
+      "",
+    ]),
+
+    `💰 TOTAL: ${formatPrice(orderTotal)}`,
 
     "",
 
-    "Aguardo o retorno de vocês para combinar os detalhes.",
+    "Aguardo a confirmação dos valores e dos detalhes do pedido.",
   ].join("\n")
 
   useEffect(() => {
@@ -452,9 +480,9 @@ function App() {
 
               <div className="cart-footer">
                 <p>
-                    Este carrinho apenas organiza os itens; nenhuma compra é
-                    concluída no site. Ao continuar, o WhatsApp abre com a
-                    mensagem pronta para você revisar e enviar.
+                  Este carrinho apenas organiza os itens; nenhuma compra é
+                  concluída no site. Ao continuar, o WhatsApp abre com a
+                  mensagem pronta para você revisar e enviar.
                 </p>
                 {orderUrl ? (
                   <a
