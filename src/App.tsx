@@ -794,19 +794,23 @@ function App() {
               </div>
               <div className="custom-art">
                 <div className="custom-gallery-toolbar">
-                  <button
-                    className="custom-gallery-toggle"
-                    type="button"
-                    aria-controls="custom-gallery"
-                    aria-label={
-                      galleryPaused
-                        ? "Retomar o movimento dos exemplos de personalização"
-                        : "Pausar o movimento dos exemplos de personalização"
-                    }
-                    onClick={() => setGalleryPaused((paused) => !paused)}
-                  >
-                    {galleryPaused ? "Retomar" : "Pausar"}
-                  </button>
+                  <label className="custom-gallery-motion">
+                    <span>Movimento</span>
+                    <input
+                      type="checkbox"
+                      role="switch"
+                      aria-label="Movimento automático dos exemplos de personalização"
+                      aria-controls="custom-gallery"
+                      checked={!galleryPaused}
+                      onChange={(event) =>
+                        setGalleryPaused(!event.currentTarget.checked)
+                      }
+                    />
+                    <span
+                      className="custom-gallery-motion-track"
+                      aria-hidden="true"
+                    />
+                  </label>
                 </div>
                 <div
                   className={`custom-gallery${
