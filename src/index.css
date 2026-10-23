@@ -19,6 +19,7 @@
   --light-muted: #5d6878;
   --light-border: rgba(17, 23, 34, 0.12);
   --container: 1280px;
+  --anchor-offset: 104px;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
   background: var(--bg);
@@ -55,7 +56,7 @@ a:focus-visible {
 
 .site-shell {
   min-height: 100vh;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .container {
@@ -82,9 +83,9 @@ a:focus-visible {
 }
 
 .site-header {
-  position: absolute;
-  z-index: 20;
+  position: sticky;
   top: 0;
+  z-index: 20;
   width: 100%;
   border-bottom: 1px solid var(--light-border);
   background: rgba(244, 242, 237, 0.9);
@@ -249,12 +250,19 @@ a:focus-visible {
 
 .button-disabled {
   cursor: not-allowed;
-  opacity: 0.58;
+  border-color: #586477;
+  background: #3c4859;
+  color: #f8fafc;
+  box-shadow: none;
+}
+
+.button-disabled:hover {
+  transform: none;
 }
 
 .hero {
   position: relative;
-  min-height: min(760px, 100svh);
+  min-height: max(620px, calc(min(760px, 100svh) - 88px));
   display: flex;
   align-items: stretch;
   border-bottom: 1px solid var(--border);
@@ -283,7 +291,7 @@ a:focus-visible {
   grid-template-columns: 0.9fr 1.1fr;
   align-items: center;
   gap: 32px;
-  padding-top: 112px;
+  padding-top: 32px;
   padding-bottom: 32px;
 }
 
@@ -352,7 +360,7 @@ h1 span {
 }
 
 .config-note {
-  color: #697586 !important;
+  color: var(--light-muted) !important;
   font-size: 0.75rem !important;
   line-height: 1.5 !important;
 }
@@ -368,26 +376,18 @@ h1 span {
 
 .stage-label {
   position: absolute;
-  top: 38px;
-  right: 0;
-  left: 0;
+  top: 30px;
+  right: auto;
+  left: 28px;
   z-index: 2;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-inline: 28px;
+  justify-content: flex-start;
   color: var(--muted);
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-}
-
-.stage-label strong {
-  color: rgba(248, 250, 252, 0.3);
-  font-size: 3rem;
-  font-weight: 800;
-  letter-spacing: -0.06em;
 }
 
 .product-light {
@@ -434,7 +434,8 @@ h1 span {
 .hero-product-image {
   position: relative;
   z-index: 2;
-  width: min(100%, 680px);
+  width: 100%;
+  max-width: 680px;
   max-height: min(460px, calc(100svh - 220px));
   object-fit: contain;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.28));
@@ -538,8 +539,7 @@ h1 span {
   margin-bottom: 48px;
 }
 
-.section-index,
-.product-number {
+.section-index {
   display: block;
   margin-bottom: 16px;
   color: #7f8b9d;
@@ -613,7 +613,7 @@ h1 span {
   animation: product-in 300ms ease both;
 }
 
-.available-tag {
+.catalog-fact {
   position: absolute;
   top: 24px;
   left: 24px;
@@ -625,9 +625,11 @@ h1 span {
   color: var(--muted);
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   backdrop-filter: blur(10px);
+}
+
+main [id] {
+  scroll-margin-top: var(--anchor-offset);
 }
 
 .card-shadow {
@@ -922,7 +924,7 @@ h1 span {
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 12px;
-    padding-top: 156px;
+    padding-top: 68px;
     padding-bottom: 64px;
   }
 
@@ -994,12 +996,12 @@ h1 span {
 }
 
 @media (max-width: 720px) {
-  .container {
-    width: min(100% - 32px, var(--container));
+  :root {
+    --anchor-offset: 88px;
   }
 
-  .site-header {
-    position: absolute;
+  .container {
+    width: min(100% - 32px, var(--container));
   }
 
   .header-inner {
@@ -1058,7 +1060,7 @@ h1 span {
   }
 
   .hero-grid {
-    padding-top: 120px;
+    padding-top: 44px;
   }
 
   .eyebrow {
@@ -1097,17 +1099,11 @@ h1 span {
   }
 
   .stage-label {
-    top: 10px;
-    padding-inline: 0;
-  }
-
-  .stage-label strong {
-    font-size: 2.25rem;
+    top: 12px;
+    left: 0;
   }
 
   .hero-product-image {
-    width: 112%;
-    max-width: none;
     max-height: 330px;
   }
 
