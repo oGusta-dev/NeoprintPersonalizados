@@ -1,0 +1,10 @@
+{
+  "description": "Showcases a personalized mug with front and back views, enabling customers to explore the product and easily order or customize via WhatsApp.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
