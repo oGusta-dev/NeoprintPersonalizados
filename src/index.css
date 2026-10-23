@@ -19,7 +19,7 @@
   --light-muted: #5d6878;
   --light-border: rgba(17, 23, 34, 0.12);
   --container: 1280px;
-  --anchor-offset: 150px;
+  --anchor-offset: 120px;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
   background: var(--bg);
@@ -88,12 +88,11 @@ a:focus-visible {
   z-index: 20;
   width: 100%;
   border-bottom: 1px solid var(--light-border);
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(16px);
+  background: var(--light-surface);
 }
 
 .header-inner {
-  min-height: 142px;
+  min-height: 112px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
@@ -136,14 +135,19 @@ a:focus-visible {
   flex: 0 0 auto;
 }
 
+.brand {
+  width: 120px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
 .brand img {
   width: 102px;
   height: 130px;
   object-fit: contain;
-}
-
-.brand {
-  justify-self: start;
+  transform: scale(1.45);
 }
 
 .main-nav,
@@ -157,9 +161,9 @@ a:focus-visible {
   justify-self: center;
   gap: 4px;
   padding: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--light-border);
   border-radius: 999px;
-  background: #171b22;
+  background: var(--light-bg);
 }
 
 .main-nav a,
@@ -167,13 +171,15 @@ a:focus-visible {
   position: relative;
   font-size: 0.875rem;
   font-weight: 600;
-  transition: color 160ms ease;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
 }
 
 .main-nav a {
   padding: 10px 16px;
   border-radius: 999px;
-  color: #b8bec8;
+  color: var(--light-muted);
 }
 
 .footer-inner nav a {
@@ -193,8 +199,8 @@ a:focus-visible {
 }
 
 .main-nav a:hover {
-  background: #303743;
-  color: #fff;
+  background: var(--light-surface);
+  color: var(--light-text);
 }
 
 .footer-inner nav a:hover {
@@ -1126,7 +1132,7 @@ main [id] {
 
 @media (max-width: 720px) {
   :root {
-    --anchor-offset: 116px;
+    --anchor-offset: 96px;
   }
 
   .container {
@@ -1134,14 +1140,20 @@ main [id] {
   }
 
   .header-inner {
-    min-height: 108px;
+    min-height: 88px;
     display: flex;
     justify-content: space-between;
   }
 
+  .brand {
+    width: 92px;
+    height: 76px;
+  }
+
   .brand img {
-    width: 80px;
-    height: 102px;
+    width: 74px;
+    height: 94px;
+    transform: scale(1.32);
   }
 
   .main-nav {
