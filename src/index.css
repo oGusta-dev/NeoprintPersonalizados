@@ -265,12 +265,21 @@ a:focus-visible {
   stroke-width: 1.8;
 }
 
-.button svg.whatsapp-icon {
-  width: 20px;
-  height: 20px;
+.button .whatsapp-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
   flex: 0 0 auto;
-  fill: currentColor;
-  stroke: none;
+  background-color: currentColor;
+  -webkit-mask-image: url('/assets/whatsapp.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url('/assets/whatsapp.svg');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  mask-mode: alpha;
 }
 
 .button:hover:not(:disabled) {
