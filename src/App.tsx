@@ -408,56 +408,72 @@ function App() {
         ref={headerRef}
         className={`site-header${headerScrolled ? " site-header--scrolled" : ""}`}
       >
-        <div className="container header-inner">
-          <a
-            className="brand"
-            href="#inicio"
-            aria-label="Neoprint Personalizados — início"
-          >
-            <img
-              src="/assets/logo-neoprint-sem-fundo.svg"
-              alt="Neoprint Personalizados"
-              width="1220"
-              height="1552"
-            />
-          </a>
+        <div className="store-header-main">
+          <div className="container store-header-main-inner">
+            <a
+              className="brand"
+              href="#inicio"
+              aria-label="Neoprint Personalizados — início"
+            >
+              <img
+                src="/assets/logo-neoprint-sem-fundo.svg"
+                alt="Neoprint Personalizados"
+                width="1220"
+                height="1552"
+              />
+            </a>
 
-          <nav className="main-nav" aria-label="Navegação principal">
+            <div className="header-actions">
+              <WhatsAppButton
+                className="header-support"
+                message="Olá! Gostaria de atendimento sobre uma caneca personalizada."
+              >
+                Atendimento
+              </WhatsAppButton>
+
+              <button
+                ref={cartTriggerRef}
+                className="header-cart-trigger"
+                type="button"
+                aria-haspopup="dialog"
+                aria-expanded={cartOpen}
+                aria-controls="cart-dialog"
+                aria-label={`Abrir carrinho: ${cartCount} ${
+                  cartCount === 1 ? "item" : "itens"
+                }`}
+                onClick={() => setCartOpen(true)}
+              >
+                <CartIcon />
+                <span className="cart-trigger-label">Carrinho</span>
+                <span className="cart-count" aria-hidden="true">
+                  {cartCount > 99 ? "99+" : cartCount}
+                </span>
+              </button>
+
+              <button
+                ref={menuToggleRef}
+                className="mobile-menu-toggle"
+                type="button"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-navigation"
+                aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+                onClick={() => setMenuOpen((open) => !open)}
+              >
+                <MenuIcon open={menuOpen} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="store-header-navigation">
+          <nav
+            className="container main-nav"
+            aria-label="Navegação principal"
+          >
             <a href="#inicio">Início</a>
-            <a href="#catalogo">Catálogo</a>
+            <a href="#catalogo">Caneca</a>
             <a href="#personalizacao">Personalização</a>
           </nav>
-
-          <button
-            ref={cartTriggerRef}
-            className="header-cart-trigger"
-            type="button"
-            aria-haspopup="dialog"
-            aria-expanded={cartOpen}
-            aria-controls="cart-dialog"
-            aria-label={`Abrir carrinho: ${cartCount} ${
-              cartCount === 1 ? "item" : "itens"
-            }`}
-            onClick={() => setCartOpen(true)}
-          >
-            <CartIcon />
-            <span className="cart-trigger-label">Carrinho</span>
-            <span className="cart-count" aria-hidden="true">
-              {cartCount > 99 ? "99+" : cartCount}
-            </span>
-          </button>
-
-          <button
-            ref={menuToggleRef}
-            className="mobile-menu-toggle"
-            type="button"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-navigation"
-            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            <MenuIcon open={menuOpen} />
-          </button>
         </div>
 
         <div
@@ -470,12 +486,18 @@ function App() {
               Início
             </a>
             <a href="#catalogo" onClick={closeMenu}>
-              Catálogo
+              Caneca
             </a>
             <a href="#personalizacao" onClick={closeMenu}>
               Personalização
             </a>
           </nav>
+          <WhatsAppButton
+            className="mobile-support-button"
+            message="Olá! Gostaria de atendimento sobre uma caneca personalizada."
+          >
+            Falar com a Neoprint
+          </WhatsAppButton>
         </div>
       </header>
 
