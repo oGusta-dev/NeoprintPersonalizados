@@ -423,6 +423,12 @@ function App() {
               />
             </a>
 
+          <nav className="main-nav" aria-label="Navegação principal">
+            <a href="#inicio">Início</a>
+            <a href="#catalogo">Canecas</a>
+            <a href="#personalizacao">Personalização</a>
+          </nav>
+
             <div className="header-actions">
               <WhatsAppButton
                 className="header-support"
@@ -465,17 +471,6 @@ function App() {
           </div>
         </div>
 
-        <div className="store-header-navigation">
-          <nav
-            className="container main-nav"
-            aria-label="Navegação principal"
-          >
-            <a href="#inicio">Início</a>
-            <a href="#catalogo">Caneca</a>
-            <a href="#personalizacao">Personalização</a>
-          </nav>
-        </div>
-
         <div
           className="mobile-navigation"
           id="mobile-navigation"
@@ -486,7 +481,7 @@ function App() {
               Início
             </a>
             <a href="#catalogo" onClick={closeMenu}>
-              Caneca
+              Canecas
             </a>
             <a href="#personalizacao" onClick={closeMenu}>
               Personalização
