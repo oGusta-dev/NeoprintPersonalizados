@@ -563,31 +563,64 @@ h1 {
 }
 
 .product-image-wrap {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  transform-origin: 50% 8%;
-  animation: hero-product-sway 6.2s ease-in-out infinite;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+
+.product-image-wrap[data-dragging="true"] {
+  cursor: grabbing;
 }
 
 .hero-product-picture {
-  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(80%, 640px);
   display: flex;
   justify-content: center;
-  transform: translateY(-5px);
-  transition: transform 220ms ease;
+  transform: translate3d(
+    calc(-50% + var(--slide-x) + var(--drag-x)),
+    -50%,
+    0
+  ) scale(var(--slide-scale));
+  opacity: var(--slide-opacity);
+  z-index: var(--slide-layer);
+  pointer-events: none;
+  transition:
+    transform 620ms cubic-bezier(0.22, 0.76, 0.26, 1),
+    opacity 260ms ease;
 }
 
+.product-image-wrap[data-dragging="true"] .hero-product-picture {
+  transition: none;
+}
 
 .hero-product-image {
   position: relative;
   z-index: 2;
-  width: 100%;
+  width: 116%;
   max-width: 680px;
   max-height: min(460px, calc(100svh - 220px));
   object-fit: contain;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.28));
   animation: product-in 300ms ease both;
+}
+
+.hero-gallery-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 3;
+  color: var(--light-muted);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
 }
 
 .contact-shadow {
@@ -1273,16 +1306,6 @@ main [id] {
   border: 0;
 }
 
-@keyframes hero-product-sway {
-  0%,
-  100% {
-    transform: rotate(-0.9deg);
-  }
-  50% {
-    transform: rotate(0.9deg);
-  }
-}
-
 @keyframes product-in {
   from {
     opacity: 0;
@@ -1329,10 +1352,6 @@ main [id] {
     background: linear-gradient(145deg, #151b26 0%, var(--bg) 76%);
     clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 100%);
     transform: translateX(-50%);
-  }
-
-  .product-image-wrap {
-    width: min(100%, 760px);
   }
 
   .card-visual {

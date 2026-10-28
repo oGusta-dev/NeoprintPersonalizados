@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react"
+import HeroMugCarousel from "./components/ui/hero-mug-carousel"
 
 // Número temporário informado para testes; substituir pelo contato oficial antes de publicar.
 
@@ -657,46 +658,12 @@ function App() {
               </p>
             </div>
 
-            <div
-              className="product-stage"
-              role="group"
-              aria-label="Visualização da caneca"
-            >
-              <div className="product-light" aria-hidden="true" />
-              <div className="product-image-wrap">
-                <picture
-                  className={`hero-product-picture hero-product-picture--${currentView.id}`}
-                >
-                  <source srcSet={currentView.webp} type="image/webp" />
-                  <img
-                    key={currentView.id}
-                    className="hero-product-image"
-                    src={currentView.src}
-                    alt={currentView.alt}
-                    width={currentView.width}
-                    height={currentView.height}
-                    loading="eager"
-                    fetchPriority="high"
-                    decoding="async"
-                  />
-                </picture>
-              </div>
-              <div className="contact-shadow" aria-hidden="true" />
-              <button
-                className={`product-view-toggle hero-view-toggle ${
-                  activeView === "verso" ? "reverse" : ""
-                }`}
-                type="button"
-                aria-label={`Mostrar ${
-                  activeView === "frente" ? "verso" : "frente"
-                } da caneca`}
-                onClick={() =>
-                  setActiveView(activeView === "frente" ? "verso" : "frente")
-                }
-              >
-                <ArrowIcon />
-              </button>
-            </div>
+            <HeroMugCarousel
+              productName={products[0].name}
+              views={productViews}
+              activeView={activeView}
+              onViewChange={setActiveView}
+/>
           </div>
         </section>
 
