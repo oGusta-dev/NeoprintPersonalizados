@@ -857,26 +857,78 @@ function App() {
 
       <footer className="site-footer">
         <div className="container footer-inner">
-          <a
-            className="footer-brand"
-            href="#inicio"
-            aria-label="Voltar ao início"
-          >
-            <img
-              src="/assets/logo-neoprint-sem-fundo.svg"
-              alt="Neoprint Personalizados"
-              width="1220"
-              height="1552"
-              loading="lazy"
-              decoding="async"
-            />
-          </a>
-          <nav aria-label="Navegação do rodapé">
-            <a href="#inicio">Início</a>
-            <a href="#catalogo">Catálogo</a>
-            <a href="#personalizacao">Personalização</a>
-          </nav>
-          <p>Frente e verso no mesmo modelo.</p>
+          <div className="footer-main">
+            <div className="footer-brand-block">
+              <a
+                className="footer-brand"
+                href="#inicio"
+                aria-label="Voltar ao início"
+              >
+                <img
+                  src="/assets/logo-neoprint-sem-fundo.svg"
+                  alt="Neoprint Personalizados"
+                  width="1220"
+                  height="1552"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <p className="footer-tagline">
+                Transformamos suas ideias em realidade.
+              </p>
+              <p className="footer-description">
+                Canecas e brindes personalizados sob medida.
+              </p>
+              <a
+                className="footer-social-link"
+                href="https://www.instagram.com/neoprint.personalize/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram da Neoprint: neoprint.personalize"
+              >
+                Instagram <span>@neoprint.personalize</span>
+              </a>
+            </div>
+
+            <section
+              className="footer-navigation"
+              aria-labelledby="footer-navigation-title"
+            >
+              <h2 className="footer-heading" id="footer-navigation-title">
+                Navegue pelo site
+              </h2>
+              <nav aria-label="Links do rodapé">
+                <a href="#inicio">Início</a>
+                <a href="#catalogo">Canecas</a>
+                <a href="#personalizacao">Personalização</a>
+              </nav>
+            </section>
+
+            <section
+              className="footer-contact"
+              aria-labelledby="footer-contact-title"
+            >
+              <h2 className="footer-heading" id="footer-contact-title">
+                Fale com a Neoprint
+              </h2>
+              <p className="footer-contact-copy">
+                Conte sua ideia e consulte as possibilidades de personalização.
+              </p>
+              <WhatsAppButton
+                className="button-primary footer-whatsapp"
+                message="Olá! Gostaria de conversar sobre uma caneca personalizada."
+              >
+                Chamar no WhatsApp
+              </WhatsAppButton>
+            </section>
+          </div>
+
+          <div className="footer-bottom">
+            <p>© {new Date().getFullYear()} Neoprint Personalizados</p>
+            <a className="footer-back-top" href="#inicio">
+              Voltar ao início
+            </a>
+          </div>
         </div>
       </footer>
     </div>
