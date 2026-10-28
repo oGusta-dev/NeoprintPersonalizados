@@ -21,7 +21,7 @@
   --container: 1280px;
   --header-main-height: 80px;
   --header-height: 80px;
-  --anchor-offset: 96px;
+  --anchor-offset: 24px;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
   background: var(--bg);
@@ -85,11 +85,11 @@ a:focus-visible {
 }
 
 .site-header {
-  position: sticky;
-  top: 0;
+  position: relative;
+  top: auto;
   z-index: 40;
   width: 100%;
-  margin-bottom: calc(var(--header-height) * -1);
+  margin-bottom: 0;
   border-bottom: 1px solid var(--light-border);
   background: var(--light-surface);
   transition:
@@ -439,7 +439,7 @@ a:focus-visible {
   grid-template-columns: 0.9fr 1.1fr;
   align-items: center;
   gap: 32px;
-  padding-top: calc(var(--header-height) + 32px);
+  padding-top: 32px;
   padding-bottom: 32px;
 }
 
@@ -1178,7 +1178,7 @@ main [id] {
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 12px;
-    padding-top: calc(var(--header-height) + 32px);
+    padding-top: 32px;
     padding-bottom: 64px;
   }
 
@@ -1243,7 +1243,7 @@ main [id] {
 @media (max-width: 960px) {
   :root {
     --header-height: 80px;
-    --anchor-offset: 96px;
+    --anchor-offset: 24px;
   }
 
   .store-header-main-inner {
@@ -1314,7 +1314,7 @@ main [id] {
   :root {
     --header-main-height: 76px;
     --header-height: 76px;
-    --anchor-offset: 92px;
+    --anchor-offset: 24px;
   }
 
   .container {
@@ -1386,7 +1386,7 @@ main [id] {
   }
 
   .hero-grid {
-    padding-top: calc(var(--header-height) + 24px);
+    padding-top: 24px;
   }
 
   h1 {
