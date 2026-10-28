@@ -566,6 +566,7 @@ h1 {
   position: absolute;
   inset: 0;
   overflow: hidden;
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%);
   touch-action: pan-y;
   user-select: none;
   cursor: grab;
@@ -573,6 +574,12 @@ h1 {
 
 .product-image-wrap[data-dragging="true"] {
   cursor: grabbing;
+}
+
+@media (max-width: 960px) {
+  .product-image-wrap {
+    clip-path: none;
+  }
 }
 
 .hero-product-picture {
