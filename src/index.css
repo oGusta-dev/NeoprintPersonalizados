@@ -1140,14 +1140,22 @@ main [id] {
   max-width: 400px;
 }
 
+.footer-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
 .footer-brand img {
-  width: 70px;
-  height: 88px;
+  width: 96px;
+  height: 112px;
   object-fit: contain;
 }
 
 .footer-tagline {
-  margin: 18px 0 8px;
+  max-width: 24ch;
+  margin: 0;
   color: var(--text);
   font-size: 1.125rem;
   font-weight: 700;
@@ -1662,6 +1670,18 @@ main [id] {
 
   .footer-brand-block {
     grid-column: 1;
+  }
+  .footer-brand-lockup {
+    gap: 14px;
+  }
+
+  .footer-brand img {
+    width: 76px;
+    height: 92px;
+  }
+
+  .footer-tagline {
+    font-size: 1rem;
   }
 
   .footer-navigation,

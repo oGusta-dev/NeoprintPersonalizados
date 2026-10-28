@@ -859,23 +859,25 @@ function App() {
         <div className="container footer-inner">
           <div className="footer-main">
             <div className="footer-brand-block">
-              <a
-                className="footer-brand"
-                href="#inicio"
-                aria-label="Voltar ao início"
-              >
-                <img
-                  src="/assets/logo-neoprint-sem-fundo.svg"
-                  alt="Neoprint Personalizados"
-                  width="1220"
-                  height="1552"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-              <p className="footer-tagline">
-                Transformamos suas ideias em realidade.
-              </p>
+              <div className="footer-brand-lockup">
+                <a
+                  className="footer-brand"
+                  href="#inicio"
+                  aria-label="Voltar ao início"
+                >
+                  <img
+                    src="/assets/logo-neoprint-sem-fundo.svg"
+                    alt="Neoprint Personalizados"
+                    width="1220"
+                    height="1552"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+                <p className="footer-tagline">
+                  Transformamos suas ideias em realidade.
+                </p>
+              </div>
               <p className="footer-description">
                 Canecas e brindes personalizados sob medida.
               </p>
