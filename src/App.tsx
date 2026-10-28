@@ -866,7 +866,7 @@ function App() {
                   aria-label="Voltar ao início"
                 >
                   <img
-                    src="/assets/logo-neoprint-sem-fundo.svg"
+                    src="/assets/logo-neoprint-sem-fundo-letras-brancas.svg"
                     alt="Neoprint Personalizados"
                     width="1220"
                     height="1552"
